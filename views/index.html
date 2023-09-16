@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimun-scale=1.0,maximum-scale=1.0">
+    <title>贾方建筑摄影</title>
+    <link rel="icon" href="../static/img/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="../static/components/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/components/DialogEffects/css/dialog.css">
+    <link rel="stylesheet" type="text/css" href="../static/components/DialogEffects/css/dialog-sandra.css" />
+    <link rel="stylesheet" href="../static/components/file-upload/jquery.fileupload.css">
+    <!-- <link rel="stylesheet" href="../static/components/bootstrap-fileinput/css/fileinput.min.css"> -->
+    <link rel="stylesheet" href="../static/components/swiper/swiper.css">
+    <link rel="stylesheet" href="../static/css/common.css?1">
+    <link rel="stylesheet" href="../static/css/index.css?1">
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-logo">
+            <img src="../static/img/JFlogo.jpg" alt="">
+        </div>
+        <div id="contentTitle" class="content-title d-n">
+            <ol class="breadcrumb" id="breadCrumb"></ol>
+            <button id="btnShow" class="content-title_login blue" href="javascript:;" data-dialog="somedialog"
+                class="trigger">登
+                录</button>
+            <div id="btnShow_logined" class="btn-group btn-logined" style="display: none;">
+                <button type="button" class="btn btn-default dropdown-toggle content-title_logined green"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> admin <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" style="min-width: auto;">
+                    <li><a id="btnLogOut" href="javascript:;">登出</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="menu">
+            <div id="menu" class="menu-cont">
+                <a href="javascript:;">
+                </a>
+                <ul>
+                    <li class="menu-cont_title" data-menuId="menu01">
+                        <a href="javascript:;">
+                            <p>Architecture<span class="nameZh">建筑</span></p>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="menu-cont_title" data-menuId="menu02">
+                        <a href="javascript:;">
+                            <p>Hotel<span class="nameZh">酒店</span></p>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="menu-cont_title" data-menuId="menu03">
+                        <a href="javascript:;">
+                            <p>Real estate<span class="nameZh">地产</span></p>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="menu-cont_title" data-menuId="menu04">
+                        <a href="javascript:;">
+                            <p>Restaurant<span class="nameZh">餐厅</span></p>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="menu-cont_title" data-menuId="menu05">
+                        <a href="javascript:;">
+                            <p>Business & Office<span class="nameZh">商业与办公</span></p>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="menu-cont_title" data-menuId="menu06">
+                        <a href="javascript:;">
+                            <p>Landscape & Lighting<span class="nameZh">景观与照明</span></span></span></p>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="menu-cont_title" data-menuId="menu07">
+                        <a href="javascript:;">
+                            <p>Architecture video<span class="nameZh">建筑视频</span></p>
+                        </a>
+                    </li>
+                </ul>
+                <!-- <ul>
+                    <li class="menu-cont_title" data-menuId="menu08">
+                        <a href="javascript:;">
+                            <p>Personal art</p>
+                        </a>
+                    </li>
+                </ul> -->
+                <div class="menu-middle">
+                    <p id="company" class="company">Company<span class="nameZh">公司简介</span></p>
+                    <p id="photoIntro" class="photo-intro">Photographer<span class="nameZh">摄影师</span></p>
+                </div>
+
+                <div class="menu-bottom">
+                    <p class="third-link"><a href="http://www.ikuku.cn/user/jf_photo" target="_blank">IKUKU</a></p>
+                    <p class="third-link"><a href="http://blog.sina.com.cn/u/1937858054" target="_blank">Sina blog</a></p>
+                    <p class="third-link"><a href="https://profile.zjurl.cn/rogue/ugc/profile/?version_code=7.8.1&version_name=70801&user_id=67342845170&media_id=0&request_source=1&active_tab=dongtai&device_id=65&app_name=news_article&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1"
+                            target="_blank">Headline today</a></p>
+                    <p>Email: 2589705008@qq.com</p>
+                    <p>TEL: 18013947966</p>
+                    <p>QQ: 2589705008</p>
+                    <p><a href="https://beian.miit.gov.cn/" target="_blank">苏ICP备2023023127号</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="contentImgs">
+                <div id="uploadBox" class="upload-box d-n">
+                    <i id="btnUpload" class="glyphicon glyphicon-plus-sign"></i>
+                    <div class="d-n"><input id="fileupload" type="file" name="img" accept=".jpg" multiple></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框（Modal） -->
+    <div id="somedialog" class="dialog my-dialog">
+        <div class="dialog__overlay"></div>
+        <div class="dialog__content">
+            <div class="login_logobox"><span class="glyphicon glyphicon-picture login_logo"></span></div>
+            <div style="display: none;"><button id="btnClose" class="action" data-dialog-close>Close</button></div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"
+                        aria-hidden="true"></span></span>
+                <input name="username" type="text" class="form-control" placeholder="用户名"
+                    aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"
+                        aria-hidden="true"></span></span>
+                <input name="password" type="password" class="form-control" placeholder="密码"
+                    aria-describedby="basic-addon1">
+            </div>
+            <button id="btnLogin" type="button" class="btn btn-default btn-block login-btn black">登录</button>
+        </div>
+    </div>
+    <!-- 模态框（Modal-新增项目窗口） -->
+    <div id="addProDialog" class="dialog my-dialog">
+        <div class="dialog__overlay"></div>
+        <div class="dialog__content dialog__content--add">
+            <div class="dialog__header">新增项目</div>
+            <div style="display: none;"><button id="btnClose" class="action" data-dialog-close>Close</button></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" tabindex="-1">中文名</button>
+                </span>
+                <input name="projectCNName" type="text" class="form-control" placeholder="请输入...">
+            </div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" tabindex="-1">英文名</button>
+                </span>
+                <input name="projectENName" type="text" class="form-control" placeholder="请输入...">
+            </div>
+            <button id="btnAddPro" type="button" class="btn btn-default btn-block login-btn black">确定</button>
+            <button id="btnUpdatePro" type="button" class="btn btn-default btn-block login-btn black d-n">确定</button>
+        </div>
+    </div>
+    <!-- 模态框（Modal-新增项目窗口） -->
+    <div id="commonDialog" class="dialog my-dialog">
+        <div class="dialog__overlay"></div>
+        <div class="dialog__content dialog__content--common">
+            <div class="dialog__header">温馨提示</div>
+            <div id="commonDialogText" class="input-group">
+            </div>
+            <button id="btnCommon" type="button" class="btn btn-default btn-block login-btn black">确定</button>
+        </div>
+    </div>
+    <!-- 轮播图 -->
+    <div class="zoom d-n" id="zoom">
+        <div class="zoom-overlay"></div>
+        <div class="zoom-content" id="zoomContent">
+            <div class="zoom-num"><span id="zoomNum">1</span>&nbsp;/&nbsp;<span id="zoomTotalNum"></span></div>
+            <div class="zoom-pic" id="zoomMainPic">
+                <img class="zoom-img" src="" id="zoomMainImg"/>
+                <img class="zoom-loadicon d-n" id="zoomLoadicon" src="../static/img/loading.gif" />
+            </div>
+            <div class="zoom-mini-pic-list-box" id="zoomMiniPicListBox">
+                <div class="zoom-mini-pic-list" id="zoomMiniPicList">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 简介 -->
+    <div class="intro d-n" id="intro">
+        <div class="intro-overlay"></div>
+        <div class="intro-cont">
+            <div class="china">
+                <h1 class="c-head">摄影师简介</h1>
+                <h4 class="e-head">Photographer Profile</h4>
+                <p>贾方</p>
+                <p class="c-indent">
+                    建筑摄影家、影像艺术家，曾就读于南京艺术学院和北京电影学院，拥有摄影艺术方向的学士和硕士学位。现担任南京艺术学院摄影系副教授、系主任；中国文化部《建筑与文化》杂志“建筑与摄影”栏目主持人、《ID+C》杂志摄影特约撰稿人；中国国家艺术基金《剧院建筑》项目主持人；2019平遥国际摄影大展国际教育论坛学术主持人；2019“OPPO全球探索计划”摄影导师；金拴马桩奖、中国摄影“伯奇杯”、1839摄影奖、中国摄影毕业季“优秀作品奖”、鸣凤堂中日青年影像艺术节、PhotoSpeaks中韩摄影展的推委、评委。
+                </p>
+                <p class="c-indent">
+                    贾方建筑摄影工作室创建于2004年，工作室与国内外多家知名设计机构、地产集团保持合作，并协助合作机构多次获得国际重要设计奖项。工作室的主要摄影题材涉及建筑、景观、照明、软装、酒店、地产、商业、办公、餐厅、工厂等。贾方的建筑摄影作品多次刊登在《DOMOS》(意大利)、《商店建筑》（日本）、《中国建筑装饰与装修》、《DI设计新潮》、《ID+C室内设计与装修》、《中国摄影》、《时尚家居》、《现代广告》、《美国室内中文版》、等杂志。曾编著出版了《大师智慧》、《惊艳米兰》、《建筑归来》、《宴遇》系列、《盛世大堂》等图书18部。撰写建筑摄影研究文章20余篇；艺术作品曾在英国、韩国、日本以及中国的平遥国际摄影大展、丽水国际摄影节、济南国际摄影展、北京国际摄影周、中国摄影艺术节、上海美术馆、南京艺术学院美术馆等地展出。
+                </p>
+            </div>
+            <div class="english">
+                <p>Jia Fang</p>
+                <p class="e-indent">
+                    An Architectural Photographer、Image Artist. He achieved Bachelor's Degree in
+                    Photography Art from Nanjing University of the Arts and
+                    Master's Degree in Photography Art from Beijing Film Academy.Now,
+                    he acts as an associate professor and director of Photography
+                    Department in Nanjing University of the Arts；He is also the host of “Architecture and Photography”
+                    column from the magazine 《Architecture and Culture》 which is run by Ministry of Culture of China;
+                    the staff writer of photography of 《ID+C》Magazine; the host of 《Theater Architecture》program of
+                    China  National Arts Fund; the academic host of international education forum at PINGYAO
+                    International Photography Festival in 2019;the photography mentor of “OPPO Global
+                    Exploration Program ”in 2019.He is also the judge of Golden Shuanmazhuang Awards、“BOQI CUP ”of China
+                    Photography、1839
+                    Photography Awards、“Outstanding Works Award” of China Photography in Graduation Season、MEIHUDO
+                    International Youth Visual
+                    Media Festival and Photo Speaks China-South Korea Photography
+                    Exhibition.</p>
+                <p class="e-indent">
+                    Jia Fang Architectural Photography Studio was founded in 2004
+                    which maintained a good partnership with well-known design
+                    agencies and real estate corporations from both domestic and
+                    abroad. In addition, they have helped the partners achieve many
+                    major international design awards. The major photography subjects of Jia Fang Architectural
+                    Photography Studio include：architecture、
+                    landscape、lighting、soft outfit、hotel、real estate、business、office、
+                    restaurant、factory etc. Jia Fang’s architectural photography works
+                    are published in the 《DOMOS》(Italy)、《Shop Design&Interior Design》(Japan)、《China Building
+                    Design&Decoration》、《DI Design Trends 》、《ID+C Interior Design+Construction》、《Chinese
+                    Photography》、《Trends Home》、《Modern Advertisement》and《Interior Design China》for many times. Jia Fang
+                    edited and published 18 books，
+                    Including Designs by Masters、Stunning Milan、Architecture Return、
+                    Restaurant Space series、Grand Lobby etc. He also wrote more than 20 articles about architectural
+                    photography studies. His artistic works were exhibited in Britain、South Korea、Japan and PINGYAO
+                    International Photography Festival、LISHUI International Photography
+                    Festival、JINAN International Photography Festival、PHOTO BEIJING 、China Photography Art
+                    Festival、Shanghai Art Museum and Art
+                    Museum of Nanjing University of the Arts.</p>
+            </div>
+        </div>
+    </div>
+    <!-- 公司简介 -->
+    <div class="intro d-n" id="introCompony">
+        <div class="intro-overlay"></div>
+        <div class="intro-cont">
+            <div class="china">
+                <h1 class="c-head">公司简介</h1>
+                <h4 class="e-head">Company Profile</h4>
+                <p class="c-indent">
+                    南京大藤摄影有限公司创建于2005年，与国内外多家设计机构、地产集团保持合作，主要经营摄影及视频拍摄业务，擅长题材包括建筑、景观、照明、软装、酒店、地产、商业、办公、餐厅、企业摄影等。
+                </p>
+                <p>
+                    地址：江苏省南京市栖霞区八卦洲街道大同生态产业园366号
+                </p>
+                <p>电话：18013947966</p>
+                <p>邮箱: 2589705008@qq.com</p>
+            </div>
+            <div class="english">
+                <p class="e-indent">
+                    Nanjing Dateng Photography Co., Ltd. was established in 2005 and has maintained good partnerships with well-known design agencies and real estate companies from both domestic and abroad. It mainly engaged in still photography and video production business. The main business themes of Nanjing Dateng Photography Co., Ltd. include: architecture, landscape, lighting, soft decoration, hotel, real estate, business, office, catering, enterprise, etc.</p>
+                <p class="e-indent">
+                    Address: 366 Datong eco-industrial Park, Baguazhou Street, Qixia District, Nanjing, Jiangsu Province
+                </p>
+                <p class="e-indent">TEL: 18013947966</p>
+                <p class="e-indent">Email: 2589705008@qq.com</p>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../static/components/jquery.min.js"></script>
+<script src="../static/components/jquery.mousewheel.js"></script>
+<script src="../static/components/swiper/swiper.js"></script>
+<script src="../static/components/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="../static/components/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="../static/components/bootstrap-fileinput/js/fileinput_locale_zh.js"></script> -->
+<script src="../static/components/file-upload/jquery.ui.widget.js"></script>
+<script src="../static/components/file-upload/jquery.fileupload.js"></script>
+<script src="../static/components/DialogEffects/js/modernizr.custom.js"></script>
+<script src="../static/components/DialogEffects/js/classie.js"></script>
+<script src="../static/components/DialogEffects/js/dialogFx.js"></script>
+<script src="../static/components/picZoom.js"></script>
+<script src="../static/components/picLazyLoad.js"></script>
+<script src="../static/components/drag.js"></script>
+<script src="../static/js/index.js?1"></script>
+
+</html>
