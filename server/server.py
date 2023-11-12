@@ -34,7 +34,7 @@ sqlUpdateMainPicId = "UPDATE project SET mainPicId = '%s' WHERE projectId = '%s'
 # 获取游标
 
 sql_config = {
-    'host': '43.129.201.145',
+    'host': '127.0.0.1',
     'port': 3306,
     'user': 'root',
     'passwd': 'Hh7664575',
@@ -52,6 +52,7 @@ class Application(tornado.web.Application):
             (r"/get_img_path", GetPathHandler),
             (r"/get_project", GetProjectHandler),
             (r"/add_project", AddProjectHandler),
+            (r"/add_video", AddVideoHandler),
             (r"/update_project", UpdateProjectHandler),
             (r"/update_main_picid", UpdateMainPicIdHandler),
             (r"/delete_project", DeleteProjectHandler),
@@ -230,7 +231,15 @@ class GetPathHandler(BaseHandler):
             for row in table:
                 if row[0] is not None:
                     file_path = row[3]
-                    if os.path.exists(file_path):
+                    if file_path.startswith("//player"):
+                        picId = row[0]
+                        data = {}
+                        data['picId'] = picId
+                        data['num'] = row[2]
+                        data['path'] = row[3]
+                        data['size'] = '0*0'
+                        return_data['data'].append(data)
+                    elif os.path.exists(file_path):
                         img = Image.open(file_path)
                         img_size = img.size
                         min_size = min(img_size)
@@ -319,6 +328,43 @@ class AddProjectHandler(BaseHandler):
             connect.commit()
             return_data['status'] = 'ok'
             return_data['msg'] = '新增项目成功'
+
+        except Exception as e:
+            return_data['status'] = 'fail'
+            return_data['msg'] = str(e)
+
+        finally:
+            cursor.close()
+            connect.close()
+            self.finish(return_data)
+
+class AddVideoHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        connect = pymysql.Connect(**sql_config)
+        videoAddress = self.get_argument('videoAddress', None)
+        menuId = self.get_argument('menuId', None)
+        projectId = self.get_argument('projectId', None)
+
+        return_data = {
+            "status": None,
+            "msg": None,
+            "data": []
+        }
+
+        cursor = connect.cursor()
+        try:
+            # 查询最大排序
+            cursor.execute(sqlQueryMax % (projectId))
+            results = cursor.fetchall()
+            max_num = 0
+                for row in results:
+                    if row[0] is not None:
+                        max_num = row[0] + 1
+            # 插入表中
+            data = (picId, picId, max_num, save_to, new_size, menuId, projectId)
+            cursor.execute(sqlInsert % data)            
+            return_data['status'] = 'ok'
+            return_data['msg'] = '新增视频成功'
 
         except Exception as e:
             return_data['status'] = 'fail'

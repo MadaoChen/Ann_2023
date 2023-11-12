@@ -120,7 +120,8 @@
         <div class="content">
             <div id="contentImgs">
                 <div id="uploadBox" class="upload-box d-n">
-                    <i id="btnUpload" class="glyphicon glyphicon-plus-sign"></i>
+                    <i id="btnUpload" class="glyphicon glyphicon-picture"></i>
+                    <i id="btnUploadV" class="glyphicon glyphicon-facetime-video"></i>
                     <div class="d-n"><input id="fileupload" type="file" name="img" accept=".jpg" multiple></div>
                 </div>
             </div>
@@ -167,6 +168,22 @@
             </div>
             <button id="btnAddPro" type="button" class="btn btn-default btn-block login-btn black">确定</button>
             <button id="btnUpdatePro" type="button" class="btn btn-default btn-block login-btn black d-n">确定</button>
+        </div>
+    </div>
+    <!-- 模态框（Modal-新增视频窗口） -->
+    <div id="addVideoDialog" class="dialog my-dialog">
+        <div class="dialog__overlay"></div>
+        <div class="dialog__content dialog__content--add">
+            <div class="dialog__header">新增视频</div>
+            <!-- <div style="display: none;"><button id="btnCloseVideo" class="action" data-dialog-close>Close</button></div> -->
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" tabindex="-1">地址</button>
+                </span>
+                <input name="videoAddress" type="text" class="form-control" placeholder="请输入...">
+            </div>
+            <button id="btnAddVideo" type="button" class="btn btn-default btn-block login-btn black">确定</button>
+            <button id="btnUpdateVideo" type="button" class="btn btn-default btn-block login-btn black d-n">确定</button>
         </div>
     </div>
     <!-- 模态框（Modal-新增项目窗口） -->

@@ -478,7 +478,7 @@ body, html {
 .upload-box {
   display: inline-block;
   height: 133px;
-  width: 133px;
+  width: 180px;
   overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 0 4px grey;
@@ -489,14 +489,21 @@ body, html {
 .upload-box:hover {
   box-shadow: 0 0 10px #66afe9;
 }
-.upload-box:hover > i {
-  color: #66afe9;
+.upload-box > i:hover {
+  color: #66afe9!important;
 }
-.upload-box > i {
+.upload-box > i:nth-child(1) {
+  font-size: 43px;
+  color: #bbb;
+  top: calc(50% - 30px);
+  left: calc(50% - 63px);
+  transition: color 200ms ease-in-out;
+}
+.upload-box > i:nth-child(2) {
   font-size: 50px;
   color: #bbb;
   top: calc(50% - 25px);
-  left: calc(50% - 25px);
+  left: calc(50% - 32px);
   transition: color 200ms ease-in-out;
 }
 

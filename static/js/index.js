@@ -11,6 +11,7 @@
     var _mainPicIdInCurProject = ''
     var _showAddProDialog = null
     var _showCommonDialog = null
+    var _showAddVideoDialog = null
     if ((isAndroid || isiOS) && window.location.href.indexOf('admin') !== -1) {
         window.location.href = '/';
         return;
@@ -67,6 +68,29 @@
                 $head.html('修改项目')
                 $btnAddPro.addClass('d-n')
                 $btnUpdatePro.removeClass('d-n')
+            }
+        }
+    }
+
+    var addVideoDialog = {
+        show: function(type) {
+            _showAddVideoDialog()
+            this.changeView(type)
+        },
+        changeView: function(type) {
+            var $addVideoDialog = $('#addVideoDialog')
+            var $head = $addVideoDialog.find('.dialog__header')
+            var $btnAddVideo = $('#btnAddVideo')
+            var $btnUpdateVideo = $('#btnUpdateVideo')
+            if (type === 'add') {
+                $head.html('新增视频')
+                $btnAddVideo.removeClass('d-n')
+                $btnUpdateVideo.addClass('d-n')
+            }
+            else {
+                $head.html('修改视频')
+                $btnAddVideo.addClass('d-n')
+                $btnUpdateVideo.removeClass('d-n')
             }
         }
     }
@@ -189,16 +213,30 @@
                         return
                     }
                     data.data.forEach(function (ele) {
-                        var html = '<div class="content-img_box">\
+                        var html = '';
+                        if (ele.path.startsWith('//')) {
+                            html = `<div class="content-img_box">\
                                         <div class="content-img_wrap">\
-                                            <img data-picId="mini_'+ ele.picId + '" class="content-img" src="../static/img/' + _curMenuId + '/mini_' + ele.picId + '" alt="">\
+                                            <iframe data-picId="mini_${ele.picId}" class="content-img" src="${ele.path}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>\
                                             <div class="content-img_layer">\
                                                 <span class="glyphicon glyphicon-remove content-img_remove"></span>\
                                                 <span class="content-img_split"></span>\
                                                 <span class="glyphicon glyphicon-ok content-img_setMain"></span>\
                                             </div>\
                                         </div>\
-                                    </div>';
+                                    </div>`
+                        } else {
+                            html = `<div class="content-img_box">\
+                                        <div class="content-img_wrap">\
+                                            <img data-picId="mini_${ele.picId}" class="content-img" src="../static/img/${ _curMenuId}/mini_${ele.picId}" alt="">\
+                                            <div class="content-img_layer">\
+                                                <span class="glyphicon glyphicon-remove content-img_remove"></span>\
+                                                <span class="content-img_split"></span>\
+                                                <span class="glyphicon glyphicon-ok content-img_setMain"></span>\
+                                            </div>\
+                                        </div>\
+                                    </div>`
+                        }
                         var $html = $(html)
                         if (ele.picId === _mainPicIdInCurProject) {
                             $html.find('.content-img').addClass('main-img');
@@ -524,6 +562,11 @@
         _showAddProDialog = addDlg.toggle.bind(addDlg)
 
         // 添加项目窗口 事件
+        var addVideoDialog = document.getElementById('addVideoDialog'),
+            addVideoDlg = new DialogFx(addVideoDialog);
+        _showAddVideoDialog = addVideoDlg.toggle.bind(addVideoDlg)
+
+        // 添加项目窗口 事件
         var commonDialog = document.getElementById('commonDialog'),
             commDlg = new DialogFx(commonDialog);
         _showCommonDialog = commDlg.toggle.bind(commDlg)
@@ -534,6 +577,29 @@
             if (e.keyCode == 13) {
                 // enter
                 $('#btnLogin').trigger('click');
+            }
+        });
+
+        // 新增视频事件
+        var $btnAddVideo = $('#btnAddVideo');
+        $btnAddVideo.on('click', function () {
+            var $videoAddress = $('[name=videoAddress]');
+            var $btnAddVideo = $('#btnAddVideo');
+            var $btnUpdateVideo = $('#btnUpdateVideo');
+            if ($videoAddress.val()) {
+                $btnAddVideo.attr('disabled', true)
+                $btnUpdateVideo.attr('disabled', true)
+                $.get("/add_video?projectId="+ _curProjectId + "menuId="+ _curMenuId + "&videoAddress=" + $videoAddress.val(), function (data) {
+                    if (data.status === 'ok') {
+                        view.changeBtnAddPro('success', 'btnAddVideo', function() {
+                            $btnAddVideo.removeAttr('disabled')
+                            $btnUpdateVideo.removeAttr('disabled')
+                        });
+                    }
+                });
+            }
+            else {
+                view.changeBtnAddPro('fail', 'btnAddVideo');
             }
         });
 
@@ -755,12 +821,23 @@
 
     function initFileInput () {
         var $uploadBox = $('#uploadBox');
+        var $btnUpload = $('#btnUpload');
+        var $btnUploadV = $('#btnUploadV');
         var $fileupload = $('#fileupload');
         var count = 0
         var lastTime = 0
+
+        // 添加视频
+        $btnUploadV.off('click').click(function () {
+            if (breadCrumb.level === 1) {
+            }
+            else {
+                addVideoDialog.show('add')
+            }
+        })
         
         // 事件
-        $uploadBox.off('click').click(function () {
+        $btnUpload.off('click').click(function () {
             if (breadCrumb.level === 1) {
                 var $projectCNName = $('[name=projectCNName]')
                 var $projectENName = $('[name=projectENName]')
